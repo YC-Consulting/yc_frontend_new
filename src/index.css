@@ -15,7 +15,7 @@
   }
   
   .btn-secondary {
-    @apply border-2 border-gray-300 text-gray-700 font-medium px-6 py-3 rounded-full transition-all duration-200 hover:bg-gray-50 hover:border-gray-400;
+    @apply border-2 border-gray-300 text-gray-700 font-medium px-6 py-3 rounded-full transition-all duration-200 hover:bg-yellow-400 hover:border-yellow-400 hover:text-black;
   }
   
   .card-hover {

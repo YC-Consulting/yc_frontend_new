@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, Send } from "lucide-react";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -152,29 +152,7 @@ export default function ContactPage() {
                 <Mail className="h-6 w-6 text-primary-600 mt-1" />
                 <div>
                   <h4 className="font-semibold text-gray-900">Email</h4>
-                  <p className="text-gray-600">hello@yichuanai.com</p>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-4">
-                <Phone className="h-6 w-6 text-primary-600 mt-1" />
-                <div>
-                  <h4 className="font-semibold text-gray-900">Phone</h4>
-                  <p className="text-gray-600">+1 (555) 123-4567</p>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-4">
-                <MapPin className="h-6 w-6 text-primary-600 mt-1" />
-                <div>
-                  <h4 className="font-semibold text-gray-900">Address</h4>
-                  <p className="text-gray-600">
-                    123 AI Street
-                    <br />
-                    Tech City, TC 12345
-                    <br />
-                    United States
-                  </p>
+                  <p className="text-gray-600">yichuaned@gmail.com</p>
                 </div>
               </div>
             </div>
@@ -184,11 +162,11 @@ export default function ContactPage() {
               <div className="space-y-2 text-sm text-gray-600">
                 <div className="flex justify-between">
                   <span>Monday - Friday</span>
-                  <span>9:00 AM - 6:00 PM</span>
+                  <span>8:00 AM - 8:00 PM</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Saturday</span>
-                  <span>10:00 AM - 4:00 PM</span>
+                  <span>8:00 AM - 8:00 PM</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Sunday</span>

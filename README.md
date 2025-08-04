@@ -1,4 +1,4 @@
-# Yichuan AI Frontend
+how# Yichuan AI Frontend
 
 A modern, clean frontend reconstruction of the Yichuan AI application built with React, TypeScript, and Vite.
 
