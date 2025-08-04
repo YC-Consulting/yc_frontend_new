@@ -33,7 +33,7 @@ const services: ServiceCard[] = [
     href: "/community-hub",
   },
   {
-    title: "personalised advisory",
+    title: "Personalised Advisory",
     description:
       "Get personalized career guidance and strategic advice from industry experts.",
     icon: "TrendingUp",
@@ -246,6 +246,14 @@ export default function HomePage() {
                     className="hover:text-white transition-colors"
                   >
                     Privacy Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/terms-of-service"
+                    className="hover:text-white transition-colors"
+                  >
+                    Terms of Service
                   </Link>
                 </li>
               </ul>

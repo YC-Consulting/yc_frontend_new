@@ -8,13 +8,14 @@ export default function ContactPage() {
     email: "",
     subject: "",
     message: "",
+    wechat: "",
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle form submission (mock)
     alert("Thank you for your message! We'll get back to you soon.");
-    setFormData({ name: "", email: "", subject: "", message: "" });
+    setFormData({ name: "", email: "", subject: "", message: "", wechat: "" });
   };
 
   const handleChange = (
@@ -87,6 +88,24 @@ export default function ContactPage() {
                   onChange={handleChange}
                   required
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="wechat"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
+                  WeChat ID <span className="text-gray-500">(Optional)</span>
+                </label>
+                <input
+                  type="text"
+                  id="wechat"
+                  name="wechat"
+                  value={formData.wechat}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  placeholder="Your WeChat ID"
                 />
               </div>
 

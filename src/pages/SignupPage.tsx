@@ -422,7 +422,7 @@ export default function SignupPage() {
               />
               <label htmlFor="terms" className="ml-2 block text-sm text-gray-700">
                 I agree to the{' '}
-                <Link to="/terms" className="text-primary-600 hover:text-primary-800">
+                <Link to="/terms-of-service" className="text-primary-600 hover:text-primary-800">
                   Terms of Service
                 </Link>{' '}
                 and{' '}
