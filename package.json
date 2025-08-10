@@ -11,15 +11,21 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
+    "@notionhq/client": "^4.0.1",
+    "clsx": "^2.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "framer-motion": "^10.16.5",
+    "lucide-react": "^0.294.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.20.1",
-    "lucide-react": "^0.294.0",
-    "framer-motion": "^10.16.5",
-    "clsx": "^2.0.0",
     "tailwind-merge": "^2.0.0"
   },
   "devDependencies": {
+    "@types/node": "^24.2.0",
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
     "@typescript-eslint/eslint-plugin": "^6.10.0",
@@ -34,4 +40,4 @@
     "typescript": "^5.2.2",
     "vite": "^4.5.0"
   }
-} 
+}

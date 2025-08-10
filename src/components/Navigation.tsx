@@ -8,8 +8,8 @@ const navigationItems: NavigationItem[] = [
   { name: "Home", href: "/" },
   { name: "Document Analysis", href: "/document-analysis" },
   { name: "Community Hub", href: "/community-hub" },
+  { name: "Media Resources", href: "/media-resources" },
   { name: "Dashboard", href: "/dashboard" },
-  { name: "About", href: "/about" },
   { name: "Contact", href: "/contact" },
 ];
 
@@ -51,8 +51,10 @@ export default function Navigation() {
                 {item.name}
               </Link>
             ))}
-            <Link to="/document-analysis" className="btn-primary">
-              Get Started
+            
+            {/* Login Button */}
+            <Link to="/login" className="btn-primary">
+              Login
             </Link>
           </div>
 
@@ -88,13 +90,17 @@ export default function Navigation() {
                 {item.name}
               </Link>
             ))}
-            <Link
-              to="/document-analysis"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="btn-primary w-full mt-2 text-center block"
-            >
-              Get Started
-            </Link>
+            
+            {/* Mobile Login Button */}
+            <div className="pt-2">
+              <Link
+                to="/login"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="btn-primary w-full text-center block"
+              >
+                Login
+              </Link>
+            </div>
           </div>
         </div>
       )}

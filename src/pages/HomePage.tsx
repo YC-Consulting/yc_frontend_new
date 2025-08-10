@@ -7,13 +7,11 @@ import {
   FileText,
   Users,
   TrendingUp,
-  Brain,
-  Clock,
   Twitter,
   Linkedin,
   Github,
 } from "lucide-react";
-import type { ServiceCard, Feature } from "@/types";
+import type { ServiceCard } from "@/types";
 
 const services: ServiceCard[] = [
   {
@@ -22,7 +20,7 @@ const services: ServiceCard[] = [
       "Upload your documents for professional AI analysis. Get detailed insights and improvement recommendations.",
     icon: "FileText",
     buttonText: "Start Analysis",
-    buttonStyle: "primary",
+    buttonStyle: "secondary",
     href: "/document-analysis",
   },
   {
@@ -35,7 +33,7 @@ const services: ServiceCard[] = [
     href: "/community-hub",
   },
   {
-    title: "Career Advisory",
+    title: "Personalised Advisory",
     description:
       "Get personalized career guidance and strategic advice from industry experts.",
     icon: "TrendingUp",
@@ -45,36 +43,11 @@ const services: ServiceCard[] = [
   },
 ];
 
-const features: Feature[] = [
-  {
-    title: "AI-Powered Analysis",
-    description:
-      "Advanced algorithms provide detailed insights and recommendations for your documents.",
-    icon: "Brain",
-    color: "yellow",
-  },
-  {
-    title: "Secure & Private",
-    description:
-      "Your documents are processed securely with enterprise-grade encryption.",
-    icon: "Shield",
-    color: "blue",
-  },
-  {
-    title: "Fast Results",
-    description: "Get comprehensive analysis results in minutes, not hours.",
-    icon: "Clock",
-    color: "green",
-  },
-];
-
 const IconMap = {
   FileText,
   Users,
   TrendingUp,
-  Brain,
   Shield,
-  Clock,
 };
 
 export default function HomePage() {
@@ -132,8 +105,12 @@ export default function HomePage() {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <div className="bg-white rounded-2xl shadow-2xl p-8 transform rotate-3 hover:rotate-0 transition-transform duration-300">
-                <div className="w-full h-64 bg-gradient-to-br from-primary-100 to-blue-100 rounded-xl flex items-center justify-center">
-                  <Brain className="h-20 w-20 text-primary-600" />
+                <div className="w-full h-64 bg-white rounded-xl flex items-center justify-center p-4">
+                  <img 
+                    src="/1.png" 
+                    alt="Professional document success illustration" 
+                    className="w-full h-full object-contain"
+                  />
                 </div>
               </div>
             </motion.div>
@@ -167,7 +144,7 @@ export default function HomePage() {
               return (
                 <motion.div
                   key={service.title}
-                  className="bg-white rounded-xl shadow-lg p-8 card-hover"
+                  className="bg-white rounded-xl shadow-lg p-8 card-hover h-full flex flex-col"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -179,7 +156,7 @@ export default function HomePage() {
                   <h3 className="text-xl font-semibold text-gray-900 mb-4">
                     {service.title}
                   </h3>
-                  <p className="text-gray-600 mb-6">{service.description}</p>
+                  <p className="text-gray-600 mb-6 flex-grow">{service.description}</p>
                   <Link
                     to={service.href}
                     className={
@@ -197,77 +174,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <motion.div
-              className="space-y-8"
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900">
-                Why Choose Yichuan AI?
-              </h2>
-              <div className="space-y-6">
-                {features.map((feature, index) => {
-                  const IconComponent =
-                    IconMap[feature.icon as keyof typeof IconMap];
-                  const colorClasses = {
-                    yellow: "bg-yellow-100 text-yellow-600",
-                    blue: "bg-blue-100 text-blue-600",
-                    green: "bg-green-100 text-green-600",
-                  };
 
-                  return (
-                    <motion.div
-                      key={feature.title}
-                      className="flex items-start space-x-4"
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.6, delay: index * 0.1 }}
-                      viewport={{ once: true }}
-                    >
-                      <div
-                        className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                          colorClasses[
-                            feature.color as keyof typeof colorClasses
-                          ]
-                        }`}
-                      >
-                        <IconComponent className="h-4 w-4" />
-                      </div>
-                      <div>
-                        <h3 className="text-lg font-semibold text-gray-900">
-                          {feature.title}
-                        </h3>
-                        <p className="text-gray-600">{feature.description}</p>
-                      </div>
-                    </motion.div>
-                  );
-                })}
-              </div>
-            </motion.div>
-            <motion.div
-              className="relative"
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-            >
-              <div className="bg-gradient-to-r from-primary-400 to-orange-500 rounded-2xl p-1">
-                <div className="bg-white rounded-xl p-8">
-                  <div className="w-full h-64 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl flex items-center justify-center">
-                    <FileText className="h-20 w-20 text-gray-400" />
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
 
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-12">
@@ -334,9 +241,20 @@ export default function HomePage() {
                   </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <Link
+                    to="/privacy-policy"
+                    className="hover:text-white transition-colors"
+                  >
                     Privacy Policy
-                  </a>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/terms-of-service"
+                    className="hover:text-white transition-colors"
+                  >
+                    Terms of Service
+                  </Link>
                 </li>
               </ul>
             </div>
