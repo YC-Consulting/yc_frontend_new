@@ -1,5 +1,8 @@
 export function formatFileSize(bytes: number): string {
   if (bytes === 0) return '0 Bytes';
+  if (typeof bytes !== 'number' || isNaN(bytes)) {
+    return 'Unknown size';
+  }
   
   const k = 1024;
   const sizes = ['Bytes', 'KB', 'MB', 'GB'];

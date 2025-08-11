@@ -1,9 +1,23 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Lock, Eye, EyeOff, UserPlus, User, ChevronDown, ChevronUp, Check, X } from "lucide-react";
-import { Link } from "react-router-dom";
+import {
+  Mail,
+  Lock,
+  Eye,
+  EyeOff,
+  UserPlus,
+  User,
+  ChevronDown,
+  ChevronUp,
+  Check,
+  X,
+} from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function SignupPage() {
+  const navigate = useNavigate();
+  const { register } = useAuth();
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -12,13 +26,16 @@ export default function SignupPage() {
     firstName: "",
     lastName: "",
   });
-  
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [signupStatus, setSignupStatus] = useState<'idle' | 'success' | 'error'>('idle');
-  const [errorMessage, setErrorMessage] = useState<string>('');
-  const [showPasswordRequirements, setShowPasswordRequirements] = useState(false);
+  const [signupStatus, setSignupStatus] = useState<
+    "idle" | "success" | "error"
+  >("idle");
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [showPasswordRequirements, setShowPasswordRequirements] =
+    useState(false);
   const [passwordRequirements, setPasswordRequirements] = useState({
     length: false,
     uppercase: false,
@@ -30,58 +47,82 @@ export default function SignupPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setSignupStatus('idle');
+    setSignupStatus("idle");
 
     try {
-      setErrorMessage('');
-      
-      // Username validation
-      if (/\s/.test(formData.username)) {
-        throw new Error('Username cannot contain spaces');
-      }
-      
-      // Basic validation
-      if (formData.password !== formData.confirmPassword) {
-        throw new Error('Passwords do not match');
+      setErrorMessage("");
+
+      // Client-side validation
+      if (
+        !formData.username ||
+        !formData.email ||
+        !formData.password ||
+        !formData.firstName ||
+        !formData.lastName
+      ) {
+        throw new Error("All fields are required");
       }
 
-      // Enhanced password validation
-      if (formData.password.length < 12) {
-        throw new Error('Password must be at least 12 characters');
+      // Username validation
+      if (/\s/.test(formData.username)) {
+        throw new Error("Username cannot contain spaces");
+      }
+
+      // Password confirmation validation
+      if (formData.password !== formData.confirmPassword) {
+        throw new Error("Passwords do not match");
+      }
+
+      // Enhanced password validation (client-side check)
+      if (formData.password.length < 8) {
+        throw new Error("Password must be at least 8 characters");
       }
 
       const hasUppercase = /[A-Z]/.test(formData.password);
       const hasLowercase = /[a-z]/.test(formData.password);
       const hasNumber = /\d/.test(formData.password);
-      const hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`]/.test(formData.password);
+      const hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`]/.test(
+        formData.password
+      );
 
       if (!hasUppercase) {
-        throw new Error('Password must contain at least one uppercase letter');
+        throw new Error("Password must contain at least one uppercase letter");
       }
       if (!hasLowercase) {
-        throw new Error('Password must contain at least one lowercase letter');
+        throw new Error("Password must contain at least one lowercase letter");
       }
       if (!hasNumber) {
-        throw new Error('Password must contain at least one number');
+        throw new Error("Password must contain at least one number");
       }
       if (!hasSpecialChar) {
-        throw new Error('Password must contain at least one special character');
+        throw new Error("Password must contain at least one special character");
       }
 
-      // TODO: Implement actual signup logic
-      // For now, simulate signup process
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      setSignupStatus('success');
-      setErrorMessage('');
-      // TODO: Redirect to login or dashboard
+      // Call the authentication context register function
+      await register({
+        username: formData.username,
+        email: formData.email,
+        password: formData.password,
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+      });
+
+      // Success
+      setSignupStatus("success");
+      setErrorMessage("");
+
+      // Redirect to login page after registration
       setTimeout(() => {
-        window.location.href = '/login';
+        navigate("/login");
       }, 1500);
     } catch (error) {
-      console.error('Signup failed:', error);
-      setSignupStatus('error');
-      setErrorMessage(error instanceof Error ? error.message : 'Signup failed. Please try again.');
+      console.error("Signup failed:", error);
+      setSignupStatus("error");
+      setErrorMessage(
+        error instanceof Error
+          ? error.message
+          : "Signup failed. Please try again."
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -89,7 +130,7 @@ export default function SignupPage() {
 
   const checkPasswordRequirements = (password: string) => {
     setPasswordRequirements({
-      length: password.length >= 12,
+      length: password.length >= 8,
       uppercase: /[A-Z]/.test(password),
       lowercase: /[a-z]/.test(password),
       number: /\d/.test(password),
@@ -99,21 +140,21 @@ export default function SignupPage() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    
+
     // Prevent spaces in username
-    if (name === 'username' && /\s/.test(value)) {
+    if (name === "username" && /\s/.test(value)) {
       return; // Don't update if username contains spaces
     }
-    
+
     // Check password requirements in real-time
-    if (name === 'password') {
+    if (name === "password") {
       checkPasswordRequirements(value);
       // Auto-open requirements dropdown when user starts typing password
       if (value.length > 0 && !showPasswordRequirements) {
         setShowPasswordRequirements(true);
       }
     }
-    
+
     setFormData({
       ...formData,
       [name]: value,
@@ -233,24 +274,34 @@ export default function SignupPage() {
                   )}
                 </button>
               </div>
-              
+
               {/* Password Requirements Dropdown */}
               <div className="mt-2">
                 <button
                   type="button"
-                  onClick={() => setShowPasswordRequirements(!showPasswordRequirements)}
+                  onClick={() =>
+                    setShowPasswordRequirements(!showPasswordRequirements)
+                  }
                   className="flex items-center justify-between w-full px-3 py-2 text-xs text-gray-600 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
                 >
                   <div className="flex items-center space-x-2">
                     <span>Password requirements</span>
-                    <span className={`text-xs px-2 py-0.5 rounded-full ${
-                      Object.values(passwordRequirements).filter(Boolean).length === 5
-                        ? 'bg-green-100 text-green-700'
-                        : Object.values(passwordRequirements).filter(Boolean).length > 0
-                        ? 'bg-yellow-100 text-yellow-700'
-                        : 'bg-gray-100 text-gray-500'
-                    }`}>
-                      {Object.values(passwordRequirements).filter(Boolean).length}/5
+                    <span
+                      className={`text-xs px-2 py-0.5 rounded-full ${
+                        Object.values(passwordRequirements).filter(Boolean)
+                          .length === 5
+                          ? "bg-green-100 text-green-700"
+                          : Object.values(passwordRequirements).filter(Boolean)
+                              .length > 0
+                          ? "bg-yellow-100 text-yellow-700"
+                          : "bg-gray-100 text-gray-500"
+                      }`}
+                    >
+                      {
+                        Object.values(passwordRequirements).filter(Boolean)
+                          .length
+                      }
+                      /5
                     </span>
                   </div>
                   {showPasswordRequirements ? (
@@ -259,11 +310,11 @@ export default function SignupPage() {
                     <ChevronDown className="h-4 w-4" />
                   )}
                 </button>
-                
+
                 {showPasswordRequirements && (
                   <motion.div
                     initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
+                    animate={{ opacity: 1, height: "auto" }}
                     exit={{ opacity: 0, height: 0 }}
                     className="mt-2 p-3 bg-gray-50 rounded-lg border"
                   >
@@ -274,51 +325,81 @@ export default function SignupPage() {
                         ) : (
                           <X className="h-4 w-4 text-red-400" />
                         )}
-                        <span className={`text-xs ${passwordRequirements.length ? 'text-green-600' : 'text-gray-500'}`}>
-                          At least 12 characters
+                        <span
+                          className={`text-xs ${
+                            passwordRequirements.length
+                              ? "text-green-600"
+                              : "text-gray-500"
+                          }`}
+                        >
+                          At least 8 characters
                         </span>
                       </div>
-                      
+
                       <div className="flex items-center space-x-2">
                         {passwordRequirements.uppercase ? (
                           <Check className="h-4 w-4 text-green-500" />
                         ) : (
                           <X className="h-4 w-4 text-red-400" />
                         )}
-                        <span className={`text-xs ${passwordRequirements.uppercase ? 'text-green-600' : 'text-gray-500'}`}>
+                        <span
+                          className={`text-xs ${
+                            passwordRequirements.uppercase
+                              ? "text-green-600"
+                              : "text-gray-500"
+                          }`}
+                        >
                           One uppercase letter (A-Z)
                         </span>
                       </div>
-                      
+
                       <div className="flex items-center space-x-2">
                         {passwordRequirements.lowercase ? (
                           <Check className="h-4 w-4 text-green-500" />
                         ) : (
                           <X className="h-4 w-4 text-red-400" />
                         )}
-                        <span className={`text-xs ${passwordRequirements.lowercase ? 'text-green-600' : 'text-gray-500'}`}>
+                        <span
+                          className={`text-xs ${
+                            passwordRequirements.lowercase
+                              ? "text-green-600"
+                              : "text-gray-500"
+                          }`}
+                        >
                           One lowercase letter (a-z)
                         </span>
                       </div>
-                      
+
                       <div className="flex items-center space-x-2">
                         {passwordRequirements.number ? (
                           <Check className="h-4 w-4 text-green-500" />
                         ) : (
                           <X className="h-4 w-4 text-red-400" />
                         )}
-                        <span className={`text-xs ${passwordRequirements.number ? 'text-green-600' : 'text-gray-500'}`}>
+                        <span
+                          className={`text-xs ${
+                            passwordRequirements.number
+                              ? "text-green-600"
+                              : "text-gray-500"
+                          }`}
+                        >
                           One number (0-9)
                         </span>
                       </div>
-                      
+
                       <div className="flex items-center space-x-2">
                         {passwordRequirements.special ? (
                           <Check className="h-4 w-4 text-green-500" />
                         ) : (
                           <X className="h-4 w-4 text-red-400" />
                         )}
-                        <span className={`text-xs ${passwordRequirements.special ? 'text-green-600' : 'text-gray-500'}`}>
+                        <span
+                          className={`text-xs ${
+                            passwordRequirements.special
+                              ? "text-green-600"
+                              : "text-gray-500"
+                          }`}
+                        >
                           One special character (!@#$%^&*...)
                         </span>
                       </div>
@@ -420,13 +501,22 @@ export default function SignupPage() {
                 required
                 className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded mt-1"
               />
-              <label htmlFor="terms" className="ml-2 block text-sm text-gray-700">
-                I agree to the{' '}
-                <Link to="/terms-of-service" className="text-primary-600 hover:text-primary-800">
+              <label
+                htmlFor="terms"
+                className="ml-2 block text-sm text-gray-700"
+              >
+                I agree to the{" "}
+                <Link
+                  to="/terms-of-service"
+                  className="text-primary-600 hover:text-primary-800"
+                >
                   Terms of Service
-                </Link>{' '}
-                and{' '}
-                <Link to="/privacy-policy" className="text-primary-600 hover:text-primary-800">
+                </Link>{" "}
+                and{" "}
+                <Link
+                  to="/privacy-policy"
+                  className="text-primary-600 hover:text-primary-800"
+                >
                   Privacy Policy
                 </Link>
               </label>
@@ -435,7 +525,15 @@ export default function SignupPage() {
             {/* Submit Button */}
             <button
               type="submit"
-              disabled={isSubmitting || !formData.username || !formData.email || !formData.password || !formData.confirmPassword || !formData.firstName || !formData.lastName}
+              disabled={
+                isSubmitting ||
+                !formData.username ||
+                !formData.email ||
+                !formData.password ||
+                !formData.confirmPassword ||
+                !formData.firstName ||
+                !formData.lastName
+              }
               className="w-full flex items-center justify-center space-x-2 bg-gradient-to-r from-primary-500 to-yellow-500 text-white font-medium px-6 py-3 rounded-lg hover:from-primary-600 hover:to-yellow-600 transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
             >
               {isSubmitting ? (
@@ -452,13 +550,25 @@ export default function SignupPage() {
             </button>
 
             {/* Status Messages */}
-            {signupStatus === 'success' && (
+            {signupStatus === "success" && (
               <div className="bg-green-50 border border-green-200 rounded-lg p-4 text-center">
                 <div className="flex items-center justify-center space-x-2 text-green-700">
-                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  <svg
+                    className="h-5 w-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
                   </svg>
-                  <span className="font-medium">Account created successfully!</span>
+                  <span className="font-medium">
+                    Account created successfully!
+                  </span>
                 </div>
                 <p className="text-green-600 text-sm mt-1">
                   Redirecting to login page...
@@ -466,16 +576,27 @@ export default function SignupPage() {
               </div>
             )}
 
-            {signupStatus === 'error' && (
+            {signupStatus === "error" && (
               <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-center">
                 <div className="flex items-center justify-center space-x-2 text-red-700">
-                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  <svg
+                    className="h-5 w-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
                   </svg>
                   <span className="font-medium">Signup failed</span>
                 </div>
                 <p className="text-red-600 text-sm mt-1">
-                  {errorMessage || 'Please check your information and try again'}
+                  {errorMessage ||
+                    "Please check your information and try again"}
                 </p>
               </div>
             )}
@@ -484,7 +605,7 @@ export default function SignupPage() {
           {/* Sign In Link */}
           <div className="mt-6 text-center">
             <p className="text-sm text-gray-600">
-              Already have an account?{' '}
+              Already have an account?{" "}
               <Link
                 to="/login"
                 className="font-medium text-primary-600 hover:text-primary-800"
@@ -503,12 +624,18 @@ export default function SignupPage() {
           className="text-center text-sm text-gray-500"
         >
           <p>
-            By creating an account, you agree to our{' '}
-            <Link to="/privacy-policy" className="text-primary-600 hover:text-primary-800">
+            By creating an account, you agree to our{" "}
+            <Link
+              to="/privacy-policy"
+              className="text-primary-600 hover:text-primary-800"
+            >
               Privacy Policy
-            </Link>{' '}
-            and{' '}
-            <Link to="/terms" className="text-primary-600 hover:text-primary-800">
+            </Link>{" "}
+            and{" "}
+            <Link
+              to="/terms"
+              className="text-primary-600 hover:text-primary-800"
+            >
               Terms of Service
             </Link>
           </p>

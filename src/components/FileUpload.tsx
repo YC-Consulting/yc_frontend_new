@@ -6,19 +6,26 @@ import { formatFileSize } from "@/utils/format";
 
 interface FileUploadProps {
   onFileSelect: (files: File[]) => void;
+  onFileRemove?: (files: File[]) => void;
   maxFiles?: number;
   maxSize?: number; // in MB
   acceptedTypes?: string[];
   className?: string;
 }
 
-interface FileWithStatus extends File {
+interface FileWithStatus {
+  name: string;
+  size: number;
+  type: string;
+  lastModified: number;
   status: "pending" | "uploading" | "success" | "error";
   error?: string;
+  file: File;
 }
 
 export default function FileUpload({
   onFileSelect,
+  onFileRemove,
   maxFiles = 5,
   maxSize = 10,
   acceptedTypes = [".pdf", ".doc", ".docx", ".txt"],
@@ -47,9 +54,13 @@ export default function FileUpload({
       selectedFiles.forEach((file) => {
         const error = validateFile(file);
         const fileWithStatus: FileWithStatus = {
-          ...file,
+          name: file.name,
+          size: file.size,
+          type: file.type,
+          lastModified: file.lastModified,
           status: error ? "error" : "pending",
           error,
+          file: file,
         };
         validFiles.push(fileWithStatus);
       });
@@ -60,7 +71,7 @@ export default function FileUpload({
       }
 
       setFiles((prev) => [...prev, ...validFiles]);
-      onFileSelect(validFiles.filter((f) => !f.error));
+      onFileSelect(validFiles.filter((f) => !f.error).map((f) => f.file));
     },
     [files, maxFiles, onFileSelect]
   );
@@ -90,12 +101,20 @@ export default function FileUpload({
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const selectedFiles = Array.from(e.target.files || []);
       handleFileSelect(selectedFiles);
+      // Clear the input value to allow re-uploading the same file
+      e.target.value = "";
     },
     [handleFileSelect]
   );
 
   const removeFile = (index: number) => {
-    setFiles((prev) => prev.filter((_, i) => i !== index));
+    const newFiles = files.filter((_, i) => i !== index);
+    setFiles(newFiles);
+
+    // Notify parent of the updated file list
+    if (onFileRemove) {
+      onFileRemove(newFiles.map((f) => f.file));
+    }
   };
 
   const getStatusIcon = (status: FileWithStatus["status"]) => {
