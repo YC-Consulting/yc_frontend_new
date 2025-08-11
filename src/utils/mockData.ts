@@ -2,8 +2,8 @@ import type { DocumentAnalysis, OpenCall } from '@/types';
 
 export const mockAnalysisResult: DocumentAnalysis = {
   id: '1',
-  fileName: 'resume.pdf',
-  category: 'cv',
+  document_id: 'doc_1',
+  document_name: 'resume.pdf',
   status: 'completed',
   score: 85,
   strengths: [
@@ -24,8 +24,8 @@ export const mockAnalysisResult: DocumentAnalysis = {
     'Include industry-specific keywords and skills that are commonly searched for in your field to improve ATS compatibility.',
     'Continue using strong action verbs like "developed," "implemented," "led," and "achieved" to make your accomplishments more impactful.'
   ],
-  createdAt: new Date(),
-  completedAt: new Date()
+  created_time: new Date().toISOString(),
+  completed_time: new Date().toISOString()
 };
 
 export const mockOpenCalls: OpenCall[] = [

@@ -1,14 +1,23 @@
 export interface DocumentAnalysis {
   id: string;
-  fileName: string;
-  category: DocumentCategory;
-  status: AnalysisStatus;
+  document_id: string;
+  document_name: string;
+  status: string;
+  analysis_result?: string;
+  error_message?: string;
+  created_time?: string;
+  started_time?: string;
+  completed_time?: string;
+  updated_time?: string;
+  // Parsed fields from analysis_result JSON
   score?: number;
   strengths?: string[];
   improvements?: string[];
   recommendations?: string[];
-  createdAt: Date;
-  completedAt?: Date;
+  summary?: string;
+  analysis_text?: string; // Full text analysis
+  format?: string;
+  note?: string;
 }
 
 export type DocumentCategory = 
