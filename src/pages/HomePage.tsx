@@ -7,9 +7,6 @@ import {
   FileText,
   Users,
   TrendingUp,
-  Twitter,
-  Linkedin,
-  Github,
 } from "lucide-react";
 import type { ServiceCard } from "@/types";
 
@@ -24,13 +21,13 @@ const services: ServiceCard[] = [
     href: "/document-analysis",
   },
   {
-    title: "Community Hub",
+    title: "Media Resources",
     description:
       "Discover open calls, residencies, exhibitions, and grants for creative professionals.",
     icon: "Users",
     buttonText: "Explore Now",
     buttonStyle: "secondary",
-    href: "/community-hub",
+    href: "/media-resources",
   },
   {
     title: "Personalised Advisory",
@@ -64,13 +61,13 @@ export default function HomePage() {
               transition={{ duration: 0.6 }}
             >
               <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 leading-tight">
-                Professional Document Review &
-                <span className="text-primary-500"> Career Advisory</span>
+                Professional Document
+                <span className="text-primary-500"> Review & Advisory</span>
               </h1>
               <p className="text-xl text-gray-600 leading-relaxed">
-                AI-powered document analysis and expert guidance to help
-                professionals showcase their talents and achievements
-                effectively.
+                AI-powered document analysis and expert guidance to help creative professionals 
+                get approved by Arts Council England, promote their creative practice, and 
+                get matched with suitable opportunities and resources.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
@@ -132,8 +129,8 @@ export default function HomePage() {
               Our Services
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Comprehensive solutions for professionals seeking to enhance their
-              career prospects
+              Comprehensive solutions for creative professionals seeking Arts Council England 
+              approval, creative practice promotion, and resource matching
             </p>
           </motion.div>
 
@@ -213,10 +210,10 @@ export default function HomePage() {
                 </li>
                 <li>
                   <Link
-                    to="/community-hub"
+                    to="/media-resources"
                     className="hover:text-white transition-colors"
                   >
-                    Community Hub
+                    Media Resources
                   </Link>
                 </li>
               </ul>
@@ -260,31 +257,15 @@ export default function HomePage() {
             </div>
             <div>
               <h4 className="font-semibold mb-4">Connect</h4>
-              <div className="flex space-x-4">
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  <Twitter className="h-6 w-6" />
-                </a>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  <Linkedin className="h-6 w-6" />
-                </a>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  <Github className="h-6 w-6" />
-                </a>
-              </div>
+              <a
+                href="mailto:yichuaned@gmail.com"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
+                yichuaned@gmail.com
+              </a>
             </div>
           </div>
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 Yichuan AI. All rights reserved.</p>
-          </div>
+
         </div>
       </footer>
     </div>

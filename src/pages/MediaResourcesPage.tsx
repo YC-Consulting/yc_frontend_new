@@ -53,19 +53,19 @@ const internationalPlatforms: MediaPlatform[] = [
     name: "Made in Shoreditch",
     country: "UK",
     category: "Arts & Culture",
-    url: "https://madeinshoreditch.co.uk/2024/of-a-virtuoso-flutist-feng-di-explores-the-timeless-art-of-the-french-flute-school/",
+    url: "https://madeinshoreditch.co.uk/",
   },
   {
     name: "Flaunt",
     country: "USA",
     category: "Fashion & Lifestyle",
-    url: "http://www.flaunt.com/post/spreads",
+    url: "https://www.flaunt.com/",
   },
   {
     name: "Ourculture Magazine",
     country: "UK",
     category: "Culture & Arts",
-    url: "https://ourculturemag.com/2024/05/yuan-zhuang-melancholy-people-have-two-reasons-for-being-so-they-dont-know-why-they-hope/",
+    url: "https://ourculturemag.com/",
   },
   {
     name: "Haute Living",
@@ -73,12 +73,7 @@ const internationalPlatforms: MediaPlatform[] = [
     category: "Luxury Lifestyle",
     url: "https://hauteliving.com/2023/02/vid-garcia-uses-art-to-spread-joy-for-the-present-and-future/726014/",
   },
-  {
-    name: "Sheen Magazine",
-    country: "UK",
-    category: "Fashion & Business",
-    url: "https://www.sheenmagazine.com/b-never-fails-to-surprise-us-intimate-interview-with-business-bombshell-katrina-scott/",
-  },
+
   {
     name: "London Journal",
     country: "UK",
@@ -88,26 +83,26 @@ const internationalPlatforms: MediaPlatform[] = [
   {
     name: "New York Weekly",
     country: "USA",
-    category: "Fashion & Design",
-    url: "https://nyweekly.com/fashion/jayi-che-weaving-a-symphony-of-history-and-modernity-in-the-threads-of-fashion/",
+    category: "Arts",
+    url: "https://nyweekly.com/arts/",
   },
   {
     name: "Daily Front Row (Fashion Week Daily)",
-    country: "UK",
+    country: "USA",
     category: "Fashion & Style",
-    url: "https://fashionweekdaily.com/scotch-jayi-che-vision-of-beauty-beyond-convention/",
+    url: "https://fashionweekdaily.com/",
   },
   {
     name: "Art Voice",
     country: "USA",
     category: "Arts & Design",
-    url: "https://artvoice.com/2023/02/interview-fashion-furniture-designer-samaransh/",
+    url: "https://artvoice.com/home/",
   },
   {
     name: "The Art Insider",
     country: "USA",
     category: "Arts & Culture",
-    url: "https://www.art-insider.com/exploring-boundaries-the-convergence-of-thought-and-vision-at-the-up-defined-tranquility-exhibition/",
+    url: "https://www.art-insider.com/",
   },
   {
     name: "LAWeekly",
@@ -119,46 +114,76 @@ const internationalPlatforms: MediaPlatform[] = [
     name: "World Art News",
     country: "USA",
     category: "Arts & Culture",
-    url: "https://worldart.news/2024/06/13/by-jianna-li-a-captivating-short-film-on-memorys-maze/",
+    url: "https://worldart.news/category/art/",
   },
 ];
 
 const chinesePlatforms: MediaPlatform[] = [
   {
-    name: "中国国际艺术(艺术中国)",
+    name: "新华网首发",
     country: "China",
     category: "Culture & Arts",
-    url: "http://art.china.cn/zixun/2019-05/20/content_40",
+    url: "http://www.news.cn/culture/",
   },
   {
-    name: "环球奢侈品",
+    name: "中国日报网文化",
     country: "China",
-    category: "女性时尚",
-    url: "https://luxury.huanqiu.com/article/49zylqQtoG",
+    category: "Culture & Arts",
+    url: "https://ent.chinadaily.com.cn/a/201811/26/WS5c048551a3101a87ca946b10.html",
   },
   {
-    name: "国际在线时尚",
+    name: "中国网艺术(艺术中国)",
     country: "China",
-    category: "女性时尚",
-    url: "http://ent.cri.cn/20220621/344e9948-b306-69b",
+    category: "Culture & Arts",
+    url: "http://art.china.cn/zixun/2019-05/20/content_40755677.htm",
   },
   {
     name: "新浪网收藏",
     country: "China",
     category: "Culture & Arts",
-    url: "http://collection.sina.com.cn/2018-11-19/doc-i",
-  },
-  {
-    name: "新浪时尚奢侈品",
-    country: "China",
-    category: "女性时尚",
-    url: "http://fashion.sina.com.cn/l/2023-07-10/1458",
+    url: "https://collection.sina.com.cn/2018-11-19/doc-ihnyuqhi2985985.shtml",
   },
   {
     name: "凤凰网文化",
     country: "China",
     category: "Culture & Arts",
-    url: "http://culture.ifeng.com/a/20170503/51040106_",
+    url: "http://culture.ifeng.com/a/20170503/51040106_0.shtml",
+  },
+  {
+    name: "艺术中文网",
+    country: "China",
+    category: "Culture & Arts",
+    url: "http://www.artzww.com/art2017art/vip_doc/19942994.html",
+  },
+  {
+    name: "雅昌艺术网",
+    country: "China",
+    category: "Culture & Arts",
+    url: "https://news.artron.net/20250811/n1143351.html",
+  },
+  {
+    name: "99艺术网",
+    country: "China",
+    category: "Culture & Arts",
+    url: "http://www.99ys.com/",
+  },
+  {
+    name: "Vogue时尚网",
+    country: "China",
+    category: "Fashion & Lifestyle",
+    url: "https://www.vogue.com.cn/fashion/jewelry__watch/news_162461a01ab04cdc.html",
+  },
+  {
+    name: "嘉人marie claire",
+    country: "China",
+    category: "Fashion & Lifestyle",
+    url: "https://www.marieclaire.com.tw/",
+  },
+  {
+    name: "芭莎Harper's BAZAAR",
+    country: "China",
+    category: "Fashion & Lifestyle",
+    url: "http://fashion.bazaar.com.cn/2024/1122/344704.shtml",
   },
 ];
 
