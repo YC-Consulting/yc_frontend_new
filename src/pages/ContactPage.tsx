@@ -418,15 +418,15 @@ export default function ContactPage() {
               <div className="space-y-2 text-sm text-gray-600">
                 <div className="flex justify-between">
                   <span>Monday - Friday</span>
-                  <span>8:00 AM - 8:00 PM</span>
+                  <span>9:00 AM - 9:00 PM</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Saturday</span>
-                  <span>8:00 AM - 6:00 PM</span>
+                  <span>9:00 AM - 9:00 PM</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Sunday</span>
-                  <span>Closed</span>
+                  <span>9:00 AM - 9:00 PM</span>
                 </div>
               </div>
             </div>
